@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _onSwitch = true;
-  bool _win = true;
+  bool _win = false;
   List<String> gameBoard = [
     '',
     '',
@@ -136,50 +136,43 @@ class _HomePageState extends State<HomePage> {
         gameBoard[0] == gameBoard[2] &&
         gameBoard[0] != '') {
       _showWinDialog(gameBoard[0]);
-      _win = true;
     }
     if (gameBoard[3] == gameBoard[4] &&
         gameBoard[3] == gameBoard[5] &&
         gameBoard[3] != '') {
       _showWinDialog(gameBoard[3]);
-      _win = true;
     }
     if (gameBoard[6] == gameBoard[7] &&
         gameBoard[6] == gameBoard[8] &&
         gameBoard[6] != '') {
       _showWinDialog(gameBoard[6]);
-      _win = true;
     }
     if (gameBoard[0] == gameBoard[3] &&
         gameBoard[0] == gameBoard[6] &&
         gameBoard[0] != '') {
       _showWinDialog(gameBoard[0]);
-      _win = true;
     }
     if (gameBoard[1] == gameBoard[4] &&
         gameBoard[1] == gameBoard[7] &&
         gameBoard[1] != '') {
       _showWinDialog(gameBoard[1]);
-      _win = true;
     }
     if (gameBoard[2] == gameBoard[5] &&
         gameBoard[2] == gameBoard[8] &&
         gameBoard[2] != '') {
       _showWinDialog(gameBoard[2]);
-      _win = true;
     }
     if (gameBoard[6] == gameBoard[4] &&
         gameBoard[6] == gameBoard[2] &&
         gameBoard[6] != '') {
       _showWinDialog(gameBoard[6]);
-      _win = true;
     }
     if (gameBoard[0] == gameBoard[4] &&
         gameBoard[0] == gameBoard[8] &&
         gameBoard[0] != '') {
       _showWinDialog(gameBoard[0]);
       _win = true;
-    } else if (_containerFillingLimit == 9 && !_win) {
+    } else if (_containerFillingLimit == 9) {
       _showDrawDialog();
     }
   }
