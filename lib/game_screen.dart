@@ -15,6 +15,12 @@ class _GameScreenState extends State<GameScreen> {
       fontSize: 40,
     ),
   );
+  static var gameScreenBlackFontStyle = GoogleFonts.schoolbell(
+    textStyle: const TextStyle(
+      color: Colors.black87,
+      fontSize: 30,
+    ),
+  );
   bool _onSwitch = true;
 
   List<String> gameBoard = [
@@ -186,14 +192,24 @@ class _GameScreenState extends State<GameScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('${win.toUpperCase()} is WINNER!'),
+          backgroundColor: Colors.grey[800],
+          title: Text(
+            '${win.toUpperCase()} is WINNER!',
+            style: gameScreenFontStyle,
+          ),
           actions: [
             ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+              ),
               onPressed: () {
                 _clearBoard();
                 Navigator.of(context).pop();
               },
-              child: const Text('RESTART'),
+              child: Text(
+                'RESTART',
+                style: gameScreenBlackFontStyle,
+              ),
             ),
           ],
         );
@@ -212,14 +228,24 @@ class _GameScreenState extends State<GameScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('DRAW'),
+          backgroundColor: Colors.grey[800],
+          title: Text(
+            'DRAW',
+            style: gameScreenFontStyle,
+          ),
           actions: [
             ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+              ),
               onPressed: () {
                 _clearBoard();
                 Navigator.of(context).pop();
               },
-              child: const Text('RESTART'),
+              child: Text(
+                'RESTART',
+                style: gameScreenBlackFontStyle,
+              ),
             ),
           ],
         );

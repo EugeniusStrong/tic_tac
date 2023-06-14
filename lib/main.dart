@@ -28,7 +28,7 @@ class _StartScreenState extends State<StartScreen> {
   static var startScreenWhiteFontStyle = GoogleFonts.schoolbell(
     textStyle: const TextStyle(
       color: Colors.white,
-      fontSize: 50,
+      fontSize: 45,
     ),
   );
   static var startScreenBlackFontStyle = GoogleFonts.schoolbell(

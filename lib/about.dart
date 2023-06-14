@@ -1,8 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class AboutMe extends StatelessWidget {
-  const AboutMe({Key? key});
+  const AboutMe({super.key});
 
   @override
   Widget build(BuildContext context) {
