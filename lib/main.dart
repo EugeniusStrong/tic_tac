@@ -1,6 +1,6 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'about.dart';
 import 'game_screen.dart';
 
@@ -25,18 +25,10 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
-  static var startScreenWhiteFontStyle = GoogleFonts.schoolbell(
-    textStyle: const TextStyle(
-      color: Colors.white,
-      fontSize: 45,
-    ),
-  );
-  static var startScreenBlackFontStyle = GoogleFonts.schoolbell(
-    textStyle: const TextStyle(
-      color: Colors.black87,
-      fontSize: 50,
-    ),
-  );
+  static var startScreenWhiteFontStyle = const TextStyle(
+      color: Colors.white, fontSize: 45, fontFamily: 'Schoolbell');
+  static var startScreenBlackFontStyle = const TextStyle(
+      color: Colors.black87, fontSize: 50, fontFamily: 'Schoolbell');
 
   @override
   Widget build(BuildContext context) {

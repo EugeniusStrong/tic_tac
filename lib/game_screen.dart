@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -9,18 +8,10 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  static var gameScreenFontStyle = GoogleFonts.schoolbell(
-    textStyle: const TextStyle(
-      color: Colors.white,
-      fontSize: 40,
-    ),
-  );
-  static var gameScreenBlackFontStyle = GoogleFonts.schoolbell(
-    textStyle: const TextStyle(
-      color: Colors.black87,
-      fontSize: 30,
-    ),
-  );
+  static var gameScreenFontStyle = const TextStyle(
+      color: Colors.white, fontSize: 40, fontFamily: 'Schoolbell');
+  static var gameScreenBlackFontStyle = const TextStyle(
+      color: Colors.black87, fontSize: 30, fontFamily: 'Schoolbell');
   bool _onSwitch = true;
 
   List<String> gameBoard = [
@@ -51,9 +42,14 @@ class _GameScreenState extends State<GameScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      'Player X',
-                      style: gameScreenFontStyle,
+                    Container(
+                      color: Colors.grey[900],
+                      alignment: Alignment.topCenter,
+                      transform: Matrix4.rotationZ(-0.1),
+                      child: Text(
+                        'Player X',
+                        style: gameScreenFontStyle,
+                      ),
                     ),
                     Text(
                       _scoreX.toString(),
