@@ -1,4 +1,8 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'about.dart';
+import 'game_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,228 +12,118 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: HomePage(),
+      home: StartScreen(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class StartScreen extends StatefulWidget {
+  const StartScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<StartScreen> createState() => _StartScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
-  bool _onSwitch = true;
-  bool _win = false;
-  List<String> gameBoard = [
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-  ];
-  int _scoreX = 0;
-  int _scoreO = 0;
-  int _containerFillingLimit = 0;
+class _StartScreenState extends State<StartScreen> {
+  static var startScreenWhiteFontStyle = GoogleFonts.schoolbell(
+    textStyle: const TextStyle(
+      color: Colors.white,
+      fontSize: 50,
+    ),
+  );
+  static var startScreenBlackFontStyle = GoogleFonts.schoolbell(
+    textStyle: const TextStyle(
+      color: Colors.black87,
+      fontSize: 50,
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.grey[900],
       body: Column(
         children: [
           Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Text(
-                      'Player X',
-                      style: TextStyle(color: Colors.white, fontSize: 30),
-                    ),
-                    Text(
-                      _scoreX.toString(),
-                      style: const TextStyle(color: Colors.white, fontSize: 30),
-                    ),
-                  ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Text(
-                      'Player O',
-                      style: TextStyle(color: Colors.white, fontSize: 30),
-                    ),
-                    Text(
-                      _scoreO.toString(),
-                      style: const TextStyle(color: Colors.white, fontSize: 30),
-                    ),
-                  ],
-                ),
-              ],
+            child: Container(
+              color: Colors.grey[900],
+              alignment: Alignment.center,
+              transform: Matrix4.rotationZ(0.1),
+              child: Text(
+                'TIC TAC TOE',
+                style: startScreenWhiteFontStyle,
+              ),
             ),
           ),
           Expanded(
-            flex: 3,
-            child: GridView.builder(
-              itemCount: 9,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3),
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () {
-                    _tapped(index);
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                      color: Colors.grey,
-                    )),
-                    child: Center(
-                      child: Text(
-                        gameBoard[index],
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 40),
-                      ),
+            flex: 2,
+            child: Container(
+              alignment: Alignment.topCenter,
+              child: AvatarGlow(
+                endRadius: 140,
+                duration: const Duration(seconds: 2),
+                glowColor: Colors.white,
+                repeat: true,
+                repeatPauseDuration: const Duration(seconds: 1),
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(style: BorderStyle.none),
+                      shape: BoxShape.circle),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey[900],
+                    radius: 100.0,
+                    child: Image.asset(
+                      'assets/images/ttt.png',
+                      color: Colors.white,
+                      fit: BoxFit.scaleDown,
                     ),
                   ),
-                );
-              },
+                ),
+              ),
             ),
           ),
           Expanded(
-            child: Container(
-              color: Colors.grey[800],
+            child: Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Container(
+                alignment: Alignment.topCenter,
+                child: ElevatedButton(
+                  style: const ButtonStyle(
+                    backgroundColor:
+                        MaterialStatePropertyAll<Color>(Colors.white),
+                    minimumSize: MaterialStatePropertyAll<Size>(
+                      Size(320, 48),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const GameScreen()));
+                  },
+                  child: Text(
+                    'Play Game',
+                    style: startScreenBlackFontStyle,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const AboutMe()));
+              },
+              child: Text(
+                'created by Eugeniy',
+                style: startScreenWhiteFontStyle,
+              ),
             ),
           ),
         ],
       ),
     );
-  }
-
-  void _tapped(int index) {
-    setState(() {
-      if (gameBoard[index] == '') {
-        if (_onSwitch) {
-          gameBoard[index] = 'x';
-          _containerFillingLimit += 1;
-        } else {
-          gameBoard[index] = 'o';
-          _containerFillingLimit += 1;
-        }
-        _onSwitch = !_onSwitch;
-        _checkWinner();
-      }
-    });
-  }
-
-  void _checkWinner() {
-    if (gameBoard[0] == gameBoard[1] &&
-        gameBoard[0] == gameBoard[2] &&
-        gameBoard[0] != '') {
-      _showWinDialog(gameBoard[0]);
-    }
-    if (gameBoard[3] == gameBoard[4] &&
-        gameBoard[3] == gameBoard[5] &&
-        gameBoard[3] != '') {
-      _showWinDialog(gameBoard[3]);
-    }
-    if (gameBoard[6] == gameBoard[7] &&
-        gameBoard[6] == gameBoard[8] &&
-        gameBoard[6] != '') {
-      _showWinDialog(gameBoard[6]);
-    }
-    if (gameBoard[0] == gameBoard[3] &&
-        gameBoard[0] == gameBoard[6] &&
-        gameBoard[0] != '') {
-      _showWinDialog(gameBoard[0]);
-    }
-    if (gameBoard[1] == gameBoard[4] &&
-        gameBoard[1] == gameBoard[7] &&
-        gameBoard[1] != '') {
-      _showWinDialog(gameBoard[1]);
-    }
-    if (gameBoard[2] == gameBoard[5] &&
-        gameBoard[2] == gameBoard[8] &&
-        gameBoard[2] != '') {
-      _showWinDialog(gameBoard[2]);
-    }
-    if (gameBoard[6] == gameBoard[4] &&
-        gameBoard[6] == gameBoard[2] &&
-        gameBoard[6] != '') {
-      _showWinDialog(gameBoard[6]);
-    }
-    if (gameBoard[0] == gameBoard[4] &&
-        gameBoard[0] == gameBoard[8] &&
-        gameBoard[0] != '') {
-      _showWinDialog(gameBoard[0]);
-      _win = true;
-    } else if (_containerFillingLimit == 9) {
-      _showDrawDialog();
-    }
-  }
-
-  void _showWinDialog(String win) {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('${win.toUpperCase()} is WINNER!'),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                _clearBoard();
-                Navigator.of(context).pop();
-              },
-              child: const Text('RESTART'),
-            ),
-          ],
-        );
-      },
-    );
-    if (win == 'x') {
-      _scoreX += 1;
-    } else if (win == 'o') {
-      _scoreO += 1;
-    }
-  }
-
-  void _showDrawDialog() {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('DRAW'),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                _clearBoard();
-                Navigator.of(context).pop();
-              },
-              child: const Text('RESTART'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _clearBoard() {
-    setState(() {
-      for (int i = 0; i < gameBoard.length; i++) {
-        gameBoard[i] = '';
-      }
-    });
-    _containerFillingLimit = 0;
   }
 }
